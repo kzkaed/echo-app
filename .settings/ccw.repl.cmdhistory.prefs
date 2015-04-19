@@ -1,0 +1,2 @@
+cmdhistory=["(defn foo [a] (inc a))" "(+ 1 1)" "(defn foo [a] (inc a))" "(ns-publics *ns*)" "(slurp \\"/dev/random\\")" "(foo)" "(foo 5)" "(foo 4)" "*ns*" "(ns-publics *ns*)" "5" "(slurp \\"nothing\\")" "5" "(defn bar \\n  [a b]\\n  (+ a b))" "(bar 4 5)" "(defn bar \\n  [a b]\\n  (+ a b))" "(defn foo [a] (inc a))" "(ns-publics *ns*)" "5" "(def server (jetty/run-jetty \#'app {\:port 8080 \:join? false}))"]
+eclipse.preferences.version=1
