@@ -4,7 +4,12 @@
 
 ## Usage
 
-not yet
+echo
+
+ (def server (jetty/run-jetty #'app {:port 8080 :join? false}))
+ 
+ then:
+ localhost:8080
 
 ## License
 
