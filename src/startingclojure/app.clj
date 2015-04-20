@@ -1,12 +1,10 @@
 (ns startingclojure.app
   (:use (compojure handler
                    [core :only (GET POST defroutes)]))
-  (:require [ring.adapter.jetty :as jetty]))
+  (:require [net.cgrand.enlive-html :as en]
+            [ring.util.response :as response]
+            [ring.adapter.jetty :as jetty]))
 
-;(defn app 
-;  [request]
-;  {:status 200
-;   :body (:uri request)})
 
 (defonce counter (atom 10000));;atomic reference , reference to mutable value 
 (defonce urls (atom {}))
@@ -19,18 +17,25 @@
     (swap! urls assoc id url)))
 
 ;handler
-(defn homepage
+(en/deftemplate homepage
+  (en/xml-resource "homepage.html");;loads content from classpath in resources
   [request]
-  (str @urls));homepage function return nil so 404 - default jetty when no servlet handler
+)
 
 ;handler
 (defn redirect
   [id]
-  id)
+  (response/redirect (@urls id)))
 
 (defroutes app
-  (GET "/" request (homepage request));ring request map call function and send request
-  (GET "/:id" [id] (redirect id)));multi or single segment dispatched to handler redirect "/:id/:name" [id name]
+  (GET "/" request (homepage request))
+  (POST "/shorten" request (let [id (shorten ( -> request :params :url))]
+                              (response/redirect "/")))
+  (GET "/show/get" request (str request))
+  (POST "/show/post" request (str request))
+  (GET "/:id" [id] (redirect id)))
+                         
+
 
 
 
