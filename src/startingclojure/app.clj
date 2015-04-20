@@ -31,7 +31,10 @@
   (GET "/" request (homepage request))
   (POST "/shorten" request (let [id (shorten ( -> request :params :url))]
                               (response/redirect "/")))
-  (GET "/show/get" request (str request))
+  (GET "/show/get" request 
+       {:status 200
+        :body (with-out-str(println request))
+        :headers {"Content-Type" "text/plain"}});jump out of compojure and use ring response directly
   (POST "/show/post" request (str request))
   (GET "/:id" [id] (redirect id)))
                          
